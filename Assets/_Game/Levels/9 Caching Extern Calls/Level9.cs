@@ -1,23 +1,22 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class Level9 : MonoBehaviour
 {
     [SerializeField] private int _iterations;
     [SerializeField] private TestMode _mode;
-
-    private int _fixedFrame;
-    private float TestProperty => _fixedFrame;
+    [SerializeField] private TMP_Text _modeText;
+    
+    private Camera _cam;
+    private Camera CamProperty => _cam;
     
     private void Start()
     {
+        _cam = Camera.main;
+        ChangeMode(0);
         SceneTools.Instance.SetNameText("Caching... any extern");
         SceneTools.Instance.SetCountText(_iterations);
-    }
-
-    private void FixedUpdate()
-    {
-        _fixedFrame++;
     }
 
     private void Update()
@@ -27,20 +26,20 @@ public class Level9 : MonoBehaviour
             case TestMode.Extern:
                 for (var i = 0; i < _iterations; i++)
                 {
-                    var result = Time.time;
+                    var result = Camera.main;
                 }
                 break;
             case TestMode.Cache:
-                var time = Time.time;
+                var cam = Camera.main;
                 for (var i = 0; i < _iterations; i++)
                 {
-                    var result = time;
+                    var result = cam;
                 }
                 break;
             case TestMode.Property:
                 for (var i = 0; i < _iterations; i++)
                 {
-                    var result = TestProperty;
+                    var result = CamProperty;
                 }
                 break;
             default:
@@ -51,6 +50,7 @@ public class Level9 : MonoBehaviour
     public void ChangeMode(int mode)
     {
         _mode = (TestMode)mode;
+        _modeText.text = $"Mode: {_mode.ToString()}";
     }
 
     private enum TestMode
