@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -7,10 +5,10 @@ public class Level4 : MonoBehaviour
 {
     [SerializeField] private Mesh _mesh;
     [SerializeField] private Material _material;
+    private float[] _cubeYOffsets;
+    private Matrix4x4[] _matrices;
 
     private float3[] _positions;
-    private Matrix4x4[] _matrices;
-    private float[] _cubeYOffsets;
     private RenderParams _rp;
 
     private void Start()
@@ -20,18 +18,11 @@ public class Level4 : MonoBehaviour
         _cubeYOffsets = new float[count];
         _matrices = new Matrix4x4[_positions.Length];
 
-        var i = 0;
-        for (var y = 0; y < SceneTools.Depth; y++)
+        SceneTools.LoopPositions((i, p) =>
         {
-            for (var x = 0; x < SceneTools.SIDE_LENGTH; x++)
-            {
-                for (var z = 0; z < SceneTools.SIDE_LENGTH; z++)
-                {
-                    _cubeYOffsets[i] = y;
-                    _positions[i++] = new float3(x, 0, z);
-                }
-            }
-        }
+            _cubeYOffsets[i] = p.y;
+            _positions[i] = p;
+        });
 
         _rp = new RenderParams(_material);
 

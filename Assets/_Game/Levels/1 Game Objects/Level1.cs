@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Level1 : MonoBehaviour
@@ -7,19 +6,13 @@ public class Level1 : MonoBehaviour
 
     private void Start()
     {
-        for (var y = 0; y < SceneTools.Depth; y++)
+        SceneTools.LoopPositions((i, p) =>
         {
-            for (var x = 0; x < SceneTools.SIDE_LENGTH; x++)
-            {
-                for (var z = 0; z < SceneTools.SIDE_LENGTH; z++)
-                {
-                    Instantiate(_cubePrefab, new Vector3(x, y * SceneTools.DEPTH_OFFSET, z), Quaternion.identity, transform)
-                        .AddComponent<Level1Cube>()
-                        .Init(y);
-                }
-            }
-        }
-
+            Instantiate(_cubePrefab, new Vector3(p.x, p.y * SceneTools.DEPTH_OFFSET, p.z), Quaternion.identity, transform)
+                .AddComponent<Level1Cube>()
+                .Init(p.y);
+        });
+        
         SceneTools.Instance.SetCountText(SceneTools.GetCount);
         SceneTools.Instance.SetNameText("Individual MonoBehaviours");
     }

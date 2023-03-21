@@ -1,15 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.Entities;
 using UnityEngine;
 
 public class Level6 : MonoBehaviour
 {
-    private World _world;
     private PlayerSpawnerSystem _system;
     private SystemHandle _system2;
+    private World _world;
 
     private void Start()
     {
@@ -19,12 +15,11 @@ public class Level6 : MonoBehaviour
         SceneTools.Instance.SetNameText("ECS + Jobs + Burst");
     }
 
-    void DelayedSystems()
+    private void Update()
     {
-        _world = World.DefaultGameObjectInjectionWorld;
-
-        _system = _world.CreateSystemManaged<PlayerSpawnerSystem>();
-        _system2 = _world.CreateSystem<MovingISystem>();
+        if (_system == null) return;
+        _system.Update();
+        _system2.Update(_world.Unmanaged);
     }
 
     private void OnDestroy()
@@ -33,10 +28,11 @@ public class Level6 : MonoBehaviour
         _world?.DestroySystem(_system2);
     }
 
-    private void Update()
+    private void DelayedSystems()
     {
-        if (_system == null) return;
-        _system.Update();
-        _system2.Update(_world.Unmanaged);
+        _world = World.DefaultGameObjectInjectionWorld;
+
+        _system = _world.CreateSystemManaged<PlayerSpawnerSystem>();
+        _system2 = _world.CreateSystem<MovingISystem>();
     }
 }

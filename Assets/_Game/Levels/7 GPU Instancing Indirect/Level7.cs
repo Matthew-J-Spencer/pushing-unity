@@ -1,16 +1,15 @@
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Level7 : MonoBehaviour
 {
     [SerializeField] private Mesh _instanceMesh;
     [SerializeField] private Material _instanceMaterial;
     [SerializeField] private int _countMultiplier = 1;
+    private readonly uint[] _args = { 0, 0, 0, 0, 0 };
+    private ComputeBuffer _argsBuffer;
+    private int _count;
 
     private ComputeBuffer _positionBuffer1, _positionBuffer2;
-    private ComputeBuffer _argsBuffer;
-    private readonly uint[] _args = { 0, 0, 0, 0, 0 };
-    private int _count;
 
     private void Start()
     {
@@ -26,6 +25,18 @@ public class Level7 : MonoBehaviour
     private void Update()
     {
         Graphics.DrawMeshInstancedIndirect(_instanceMesh, 0, _instanceMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), _argsBuffer);
+    }
+
+    private void OnDisable()
+    {
+        _positionBuffer1?.Release();
+        _positionBuffer1 = null;
+
+        _positionBuffer2?.Release();
+        _positionBuffer2 = null;
+
+        _argsBuffer?.Release();
+        _argsBuffer = null;
     }
 
     private void UpdateBuffers()
@@ -73,17 +84,5 @@ public class Level7 : MonoBehaviour
         _args[3] = _instanceMesh.GetBaseVertex(0);
 
         _argsBuffer.SetData(_args);
-    }
-
-    private void OnDisable()
-    {
-        _positionBuffer1?.Release();
-        _positionBuffer1 = null;
-
-        _positionBuffer2?.Release();
-        _positionBuffer2 = null;
-
-        _argsBuffer?.Release();
-        _argsBuffer = null;
     }
 }

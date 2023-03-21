@@ -3,9 +3,9 @@ using UnityEngine;
 public class Level2 : MonoBehaviour
 {
     [SerializeField] private Transform _cubePrefab;
+    private float[] _cubeYOffsets;
 
     private Transform[] _spawnedCubes;
-    private float[] _cubeYOffsets;
 
     private void Start()
     {
@@ -13,18 +13,12 @@ public class Level2 : MonoBehaviour
         _spawnedCubes = new Transform[count];
         _cubeYOffsets = new float[count];
 
-        var i = 0;
-        for (int y = 0; y < SceneTools.Depth; y++)
+        
+        SceneTools.LoopPositions((i, p) =>
         {
-            for (var x = 0; x < SceneTools.SIDE_LENGTH; x++)
-            {
-                for (var z = 0; z < SceneTools.SIDE_LENGTH; z++)
-                {
-                    _cubeYOffsets[i] = y;
-                    _spawnedCubes[i++] = Instantiate(_cubePrefab, new Vector3(x, y, z), Quaternion.identity, transform);
-                }
-            }
-        }
+            _cubeYOffsets[i] = p.y;
+            _spawnedCubes[i] = Instantiate(_cubePrefab, p, Quaternion.identity, transform);
+        });
 
         SceneTools.Instance.SetCountText(count);
         SceneTools.Instance.SetNameText("Managed Cubes");

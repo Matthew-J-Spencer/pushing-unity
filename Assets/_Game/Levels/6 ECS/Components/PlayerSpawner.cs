@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 
@@ -18,7 +16,7 @@ public class PlayerSpawnerBaker : Baker<PlayerSpawner>
 {
     public override void Bake(PlayerSpawner authoring)
     {
-        AddComponent(new PlayerSpawnerComponent()
+        AddComponent(new PlayerSpawnerComponent
         {
             PlayerPrefab = GetEntity(authoring.PlayerPrefab)
         });

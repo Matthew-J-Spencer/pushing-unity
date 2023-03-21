@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -5,26 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class SceneTools : MonoBehaviour
 {
+    public const float DEPTH_OFFSET = 7;
+    public const float HEIGHT_SCALE = 1.5f;
+    public const float NOISE_SCALE = .2f;
+    private const int SIDE_LENGTH = 100;
+    private const int FPS_SAMPLE_COUNT = 20;
     public static SceneTools Instance;
+
+    public static readonly quaternion RotGoal = quaternion.Euler(130, 50, 150);
 
     [SerializeField] private TMP_Text _cubeCountText, _fpsText, _nameText;
 
+    private readonly int[] _fpsSamples = new int[FPS_SAMPLE_COUNT];
+    private int _sampleIndex;
+
     [field: SerializeField] public Color[] ColorArray { get; private set; }
 
-    public const float DEPTH_OFFSET = 7;
-    public const float HEIGHT_SCALE = 3.5f;
-    public const float NOISE_SCALE = .2f;
-    public const int SIDE_LENGTH = 100;
-    private const int FPS_SAMPLE_COUNT = 20;
-
-    public static int Depth { get; private set; } = 1;
+    private static int Depth { get; set; } = 1;
 
     public static Vector3 CubeScale { get; } = new(0.7f, 0.7f, 0.7f);
-
-    private readonly int[] _fpsSamples = new int[FPS_SAMPLE_COUNT];
-    private int _sampleIndex = 0;
-
-    public static readonly quaternion RotGoal = quaternion.Euler(130, 50, 50);
+    public static int GetCount => SIDE_LENGTH * SIDE_LENGTH * Depth;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class SceneTools : MonoBehaviour
         _fpsSamples[_sampleIndex++] = (int)(1.0f / Time.deltaTime);
         if (_sampleIndex >= FPS_SAMPLE_COUNT) _sampleIndex = 0;
 
+        // I actually hate this
         if (Input.GetKeyDown(KeyCode.Alpha1)) Act(1);
         if (Input.GetKeyDown(KeyCode.Alpha2)) Act(2);
         if (Input.GetKeyDown(KeyCode.Alpha3)) Act(3);
@@ -64,16 +66,33 @@ public class SceneTools : MonoBehaviour
     }
 
     public void SetCountText(int count) => _cubeCountText.text = $"Cube Count: {count:n0}";
-    public static int GetCount => SIDE_LENGTH * SIDE_LENGTH * Depth;
 
     public void SetNameText(string testName) => _nameText.text = $"{SceneManager.GetActiveScene().buildIndex + 1} - {testName}";
 
     private void UpdateFps()
     {
         var sum = 0;
-        for (var i = 0; i < FPS_SAMPLE_COUNT; i++) sum += _fpsSamples[i];
+        for (var i = 0; i < FPS_SAMPLE_COUNT; i++)
+        {
+            sum += _fpsSamples[i];
+        }
 
         _fpsText.text = $"FPS: {sum / FPS_SAMPLE_COUNT}";
+    }
+
+    public static void LoopPositions(Action<int, Vector3> action)
+    {
+        var i = 0;
+        for (var y = 0; y < Depth; y++)
+        {
+            for (var x = 0; x < SIDE_LENGTH; x++)
+            {
+                for (var z = 0; z < SIDE_LENGTH; z++)
+                {
+                    action(i++, new Vector3(x, y, z));
+                }
+            }
+        }
     }
 }
 

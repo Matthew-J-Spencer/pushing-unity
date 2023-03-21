@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class Level8 : MonoBehaviour
@@ -11,12 +8,14 @@ public class Level8 : MonoBehaviour
     [SerializeField] private Material _instanceMaterial;
     [SerializeField] private ComputeShader _compute;
     [SerializeField] private Transform _pusher;
+    private readonly uint[] _args = { 0, 0, 0, 0, 0 };
+    private ComputeBuffer _argsBuffer;
 
     private int _count;
-    private ComputeBuffer _argsBuffer;
-    private readonly uint[] _args = { 0, 0, 0, 0, 0 };
 
     private int _kernel;
+
+    private ComputeBuffer _meshPropertiesBuffer;
 
     private void Start()
     {
@@ -36,6 +35,12 @@ public class Level8 : MonoBehaviour
         _compute.Dispatch(_kernel, Mathf.CeilToInt(_count / 64f), 1, 1);
 
         Graphics.DrawMeshInstancedIndirect(_instanceMesh, 0, _instanceMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), _argsBuffer);
+    }
+
+    private void OnDisable()
+    {
+        _argsBuffer?.Release();
+        _argsBuffer = null;
     }
 
     private void UpdateBuffers()
@@ -68,14 +73,6 @@ public class Level8 : MonoBehaviour
         _args[3] = _instanceMesh.GetBaseVertex(0);
 
         _argsBuffer.SetData(_args);
-    }
-
-    private ComputeBuffer _meshPropertiesBuffer;
-
-    private void OnDisable()
-    {
-        _argsBuffer?.Release();
-        _argsBuffer = null;
     }
 
     private struct MeshData
