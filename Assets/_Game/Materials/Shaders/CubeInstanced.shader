@@ -29,7 +29,7 @@ Shader "Tarodev/CubeInstanced"
 
             StructuredBuffer<float4> position_buffer_1;
             StructuredBuffer<float4> position_buffer_2;
-            float4 color_buffer[32];
+            float4 color_buffer[8];
 
             struct Attributes
             {
@@ -57,7 +57,7 @@ Shader "Tarodev/CubeInstanced"
                 const float3 world_end = end.xyz + v.vertex.xyz;
 
                 const float3 pos = lerp(world_start, world_end, t);
-                const float3 color = lerp(color_buffer[end.w], _FarColor, t);
+                const float3 color = lerp(color_buffer[end.w % 8], _FarColor, t);
 
                 Varyings o;
                 o.vertex = mul(UNITY_MATRIX_VP, float4(pos, 1.0f));

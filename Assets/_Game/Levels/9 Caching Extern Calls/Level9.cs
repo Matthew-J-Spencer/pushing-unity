@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 
@@ -7,15 +8,19 @@ public class Level9 : MonoBehaviour
     [SerializeField] private int _iterations;
     [SerializeField] private TestMode _mode;
     [SerializeField] private TMP_Text _modeText;
-    
-    private Camera _cam;
-    private Camera CamProperty => _cam;
-    
+
+    private Camera CamProperty
+    {
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        get;
+        set;
+    }
+
     private void Start()
     {
-        _cam = Camera.main;
+        CamProperty = Camera.main;
         ChangeMode(0);
-        SceneTools.Instance.SetNameText("Caching... any extern");
+        SceneTools.Instance.SetNameText("Caching Camera.main");
         SceneTools.Instance.SetCountText(_iterations);
     }
 
@@ -57,6 +62,6 @@ public class Level9 : MonoBehaviour
     {
         Extern = 0,
         Cache = 1,
-        Property = 2
+        Property = 2,
     }
 }

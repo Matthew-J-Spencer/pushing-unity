@@ -3,15 +3,16 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneTools : MonoBehaviour
 {
     public const float DEPTH_OFFSET = 7;
-    
+
     // Variance between mathf & mathematics perlin. Trying to keep them visually similar
     public const float HEIGHT_SCALE = 2.5f;
     public const float BURST_HEIGHT_SCALE = 1.5f;
-    
+
     public const float NOISE_SCALE = .2f;
     private const int SIDE_LENGTH = 100;
     private const int FPS_SAMPLE_COUNT = 20;
@@ -20,9 +21,11 @@ public class SceneTools : MonoBehaviour
     public static readonly quaternion RotGoal = quaternion.Euler(130, 50, 150);
 
     [SerializeField] private TMP_Text _cubeCountText, _fpsText, _nameText;
+    [SerializeField] private Slider _slider;
 
     private readonly int[] _fpsSamples = new int[FPS_SAMPLE_COUNT];
     private int _sampleIndex;
+    private int _cachedDepth;
 
     [field: SerializeField] public Color[] ColorArray { get; private set; }
 
@@ -36,6 +39,8 @@ public class SceneTools : MonoBehaviour
         Instance = this;
         Application.targetFrameRate = -1;
 
+        _cachedDepth = Depth;
+        ApplyCountUpdate(Depth, true);
         InvokeRepeating(nameof(UpdateFps), 0, 0.1f);
     }
 
@@ -54,22 +59,16 @@ public class SceneTools : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha7)) Act(7);
         if (Input.GetKeyDown(KeyCode.Alpha8)) Act(8);
         if (Input.GetKeyDown(KeyCode.Alpha9)) Act(9);
-    }
 
-    private static void Act(int num)
-    {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetMouseButtonUp(0) && Depth != _cachedDepth)
         {
-            Depth = num;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        else
-        {
-            SceneManager.LoadScene(num - 1);
-        }
     }
 
-    public void SetCountText(int count) => _cubeCountText.text = $"Cube Count: {count:n0}";
+    private static void Act(int num) => SceneManager.LoadScene(num - 1);
+
+    public void SetCountText(int count) => _cubeCountText.text = $"Count: {count:n0}";
 
     public void SetNameText(string testName) => _nameText.text = $"{SceneManager.GetActiveScene().buildIndex + 1} - {testName}";
 
@@ -97,6 +96,17 @@ public class SceneTools : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UpdateCount(float val)
+    {
+        ApplyCountUpdate(Mathf.CeilToInt(val));
+    }
+
+    private void ApplyCountUpdate(int val, bool applySliderChange = false)
+    {
+        Depth = val;
+        if (applySliderChange) _slider.value = val;
     }
 }
 
