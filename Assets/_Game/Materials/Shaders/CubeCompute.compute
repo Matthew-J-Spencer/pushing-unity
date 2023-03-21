@@ -1,0 +1,49 @@
+#pragma kernel cs_main
+#include <UnityShaderVariables.cginc>
+
+struct mesh_data
+{
+    float3 basePos;
+    float4x4 mat;
+    float amount;
+};
+
+void rotate_2d(inout float2 v, const float r)
+{
+    float s, c;
+    sincos(r, s, c);
+    v = float2(v.x * c - v.y * s, v.x * s + v.y * c);
+}
+
+RWStructuredBuffer<mesh_data> data;
+float3 pusher_position;
+
+[numthreads(64,1,1)]
+void cs_main(uint3 id : SV_DispatchThreadID)
+{
+    float4x4 mat = data[id.x].mat;
+    float3 base_pos = data[id.x].basePos;
+
+    // First, let's handle the y axis rotation
+    const float rotation = _Time.y * 0.3f;
+    rotate_2d(base_pos.xz, rotation);
+
+    // Distance from the pusher
+    const float3 position = float3(mat[0][3], mat[1][3], mat[2][3]);
+    const float dist = distance(position, pusher_position);
+
+    // Remapped distance
+    const float t = smoothstep(30, 0, dist);
+
+    // Calculate the push amount
+    const float3 dir = normalize(base_pos - pusher_position);
+    const float3 push_amount = dir * lerp(0, 20, t);
+    const float3 new_pos = base_pos + push_amount;
+
+    mat[0][3] = new_pos.x;
+    mat[1][3] = new_pos.y;
+    mat[2][3] = new_pos.z;
+
+    data[id.x].mat = mat;
+    data[id.x].amount = t;
+}
