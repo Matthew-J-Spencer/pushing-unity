@@ -14,7 +14,6 @@ public partial struct MovingISystem : ISystem
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        if(World.All.Count <= 0) return;
         new MoveJob
         {
             Time = (float)SystemAPI.Time.ElapsedTime

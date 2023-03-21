@@ -90,7 +90,7 @@ public static class CubeHelpers
     public static (float3 pos, Quaternion rot) CalculatePos(this float3 pos, float yOffset, float time)
     {
         var t = math.unlerp(yOffset, SceneTools.HEIGHT_SCALE + yOffset, pos.y);
-        pos.y = SceneTools.HEIGHT_SCALE * noise.cnoise(new float2(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time)) + yOffset;
+        pos.y = SceneTools.HEIGHT_SCALE * noise.cnoise(new float2(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time)) + yOffset * SceneTools.DEPTH_OFFSET;
         var rot = math.nlerp(quaternion.identity, SceneTools.RotGoal,t);
         return (pos, rot);
     }

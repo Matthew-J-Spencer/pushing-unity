@@ -81,5 +81,5 @@ Material:
     - _CloseColor: {r: 1, g: 0.7, b: 0, a: 1}
     - _Color: {r: 1, g: 0.6060061, b: 0, a: 1}
     - _EmissionColor: {r: 8.574187, g: 4.0349116, b: 7.599084, a: 1}
-    - _FarColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+    - _FarColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
   m_BuildTextureStacks: []

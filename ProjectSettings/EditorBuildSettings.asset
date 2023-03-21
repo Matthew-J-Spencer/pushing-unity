@@ -8,25 +8,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Game/Levels/1 Game Objects/Level 1.unity
     guid: dfe5af97719bbdc4aa3e770f235b9ab0
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/2 Game Objects Managed/Level 2.unity
     guid: d3aafa964a1b1c14ba1c30fa3b6dae73
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/3 Game Objects Managed No extern/Level 3.unity
     guid: 9fe41454a35113f4da1cbcd7ac9f83c6
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/4 GPU Instancing/Level 4.unity
     guid: f93194b3f61a2e643b3dc13ef93096cb
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/5 GPU Instancing With Jobs/Level 5.unity
     guid: 8f248c74e1ec699439c82de538d7a84c
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/6 ECS/Level 6.unity
     guid: a59a49a9dbbba99438ad66accf7eb9b1
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/7 GPU Instancing Indirect/Level 7.unity
     guid: e347544e4a708da409a2b2206f047b3f
-  - enabled: 0
+  - enabled: 1
     path: Assets/_Game/Levels/8 GPU Instancing Direct Interaction/Level 8.unity
     guid: ce4132036bbb5be47a2d589aa85ac919
   m_configObjects: {}

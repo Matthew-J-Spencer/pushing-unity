@@ -42,7 +42,6 @@ Shader "Tarodev/CubeInstanced"
             struct Varyings
             {
                 float4 vertex : SV_POSITION;
-                float3 ambient : TEXCOORD1;
                 float3 diffuse : TEXCOORD2;
                 float3 color : TEXCOORD3;
             };
@@ -62,19 +61,15 @@ Shader "Tarodev/CubeInstanced"
 
                 Varyings o;
                 o.vertex = mul(UNITY_MATRIX_VP, float4(pos, 1.0f));
-                  o.ambient = float3(0.5,.1,1);// SampleSH9();// SampleSH9(float4(v.normal, 1.0f));
-                  o.diffuse = (saturate(dot(v.normal, float3(0,1,0))) * float3(1,1,1));
-               o.ambient = float3(1,1,1) * 0.1f;
-                 o.diffuse = float3(1,1,1)* 0.1f;
+                o.diffuse = saturate(dot(v.normal, _MainLightPosition.xyz));
                 o.color = color;
-
-
+                
                 return o;
             }
 
             half4 frag(const Varyings i) : SV_Target
             {
-                const float3 lighting = i.diffuse * 15 + i.ambient;
+                const float3 lighting = i.diffuse *  1.7;
                 return half4(i.color * lighting, 1);;
             }
             ENDHLSL
