@@ -261,6 +261,7 @@ MonoBehaviour:
   _instanceMaterial: {fileID: 2100000, guid: 4afa4d6b915e65c448b48b63b42241e4, type: 2}
   _compute: {fileID: 7200000, guid: 38616245c09f93940ae06e4c583c4efb, type: 3}
   _pusher: {fileID: 265986320}
+  _pusherSpeed: 20
 --- !u!4 &1621488424
 Transform:
   m_ObjectHideFlags: 0
@@ -288,6 +289,10 @@ PrefabInstance:
       propertyPath: sharedProfile
       value: 
       objectReference: {fileID: 11400000, guid: 9b9912c8094b4cc49be1d754a39660f0, type: 2}
+    - target: {fileID: 472220966963759030, guid: 15e8d8f6b29d486499499d0a1e2e53fa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 472220966963759030, guid: 15e8d8f6b29d486499499d0a1e2e53fa, type: 3}
       propertyPath: movementSpeed
       value: 20

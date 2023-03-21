@@ -8,7 +8,7 @@ public readonly partial struct MoveToPositionAspect : IAspect
 
     public void Move(float time)
     {
-        var (pos, rot) = _transformAspect.LocalPosition.CalculatePos(_targetPosition.ValueRO.Value.y, time);
+        var (pos, rot) = _transformAspect.LocalPosition.CalculatePosBurst(_targetPosition.ValueRO.Value.y, time);
 
         _transformAspect.LocalRotation = rot;
         _transformAspect.LocalPosition = pos;

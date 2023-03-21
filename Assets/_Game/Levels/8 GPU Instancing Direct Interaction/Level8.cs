@@ -7,7 +7,11 @@ public class Level8 : MonoBehaviour
     [SerializeField] private Mesh _instanceMesh;
     [SerializeField] private Material _instanceMaterial;
     [SerializeField] private ComputeShader _compute;
+    
     [SerializeField] private Transform _pusher;
+    [SerializeField] private float _pusherSpeed = 20;   
+    
+    
     private readonly uint[] _args = { 0, 0, 0, 0, 0 };
     private ComputeBuffer _argsBuffer;
 
@@ -31,6 +35,10 @@ public class Level8 : MonoBehaviour
 
     private void Update()
     {
+        var dir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        _pusher.Translate(dir * (_pusherSpeed * Time.deltaTime));
+        
+        
         _compute.SetVector("pusher_position", _pusher.position);
         _compute.Dispatch(_kernel, Mathf.CeilToInt(_count / 64f), 1, 1);
 

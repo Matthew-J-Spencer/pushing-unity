@@ -3,31 +3,30 @@
   <component name="ChangeListManager">
     <list default="true" id="376b3e75-255d-4a33-b57c-d89932bacee6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.pushing-unity/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.pushing-unity/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/1 Game Objects/Level1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/1 Game Objects/Level1.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/1 Game Objects/Level1Cube.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/1 Game Objects/Level1Cube.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/2 Game Objects Managed/Level2.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/2 Game Objects Managed/Level2.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/3 Game Objects Managed No extern/Level3.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/3 Game Objects Managed No extern/Level3.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/4 GPU Instancing/Level4.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/4 GPU Instancing/Level4.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/5 GPU Instancing With Jobs/Level5.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/5 GPU Instancing With Jobs/Level5.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Components/PlayerSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Components/PlayerSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Components/TargetPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Components/TargetPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Level6.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Level6.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Systems/MovingISystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Systems/MovingISystem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Aspect/MoveToPositionAspect.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Aspect/MoveToPositionAspect.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Systems/PlayerSpawnerSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/6 ECS/Systems/PlayerSpawnerSystem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/7 GPU Instancing Indirect/Level7.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/7 GPU Instancing Indirect/Level7.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/8 GPU Instancing Direct Interaction/Level 8.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/8 GPU Instancing Direct Interaction/Level 8.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/Levels/8 GPU Instancing Direct Interaction/Level8.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/Levels/8 GPU Instancing Direct Interaction/Level8.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/SceneTools.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/SceneTools.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Game/_Scripts/StolenFreeCam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Game/_Scripts/StolenFreeCam.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock://F:/Tarodev/Public Repos/pushing-unity/Assets/_Game/Levels/4 GPU Instancing/Level4.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectId" id="2NJPc9BOy1VnhSLt7ASaMvhmJjq" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -38,7 +37,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C#",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.new.ui",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -104,12 +103,15 @@
       <option name="presentableId" value="Default" />
       <updated>1679379290409</updated>
       <workItem from="1679379291777" duration="1362000" />
+      <workItem from="1679393618530" duration="20000" />
+      <workItem from="1679393650128" duration="2943000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">

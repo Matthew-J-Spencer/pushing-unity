@@ -1,6 +1,5 @@
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 [BurstCompile]
@@ -19,10 +18,10 @@ public partial class PlayerSpawnerSystem : SystemBase
         }
 
         var buffer = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>().CreateCommandBuffer(World.Unmanaged);
-        
+        var prefab = SystemAPI.GetSingleton<PlayerSpawnerComponent>().PlayerPrefab;
         SceneTools.LoopPositions((i, p) =>
         {
-            var entity = buffer.Instantiate(SystemAPI.GetSingleton<PlayerSpawnerComponent>().PlayerPrefab);
+            var entity = buffer.Instantiate(prefab);
             buffer.SetComponent(entity, new TargetPositionComponent
             {
                 Value = p

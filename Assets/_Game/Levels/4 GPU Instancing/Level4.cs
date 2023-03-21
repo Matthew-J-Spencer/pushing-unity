@@ -8,13 +8,13 @@ public class Level4 : MonoBehaviour
     private float[] _cubeYOffsets;
     private Matrix4x4[] _matrices;
 
-    private float3[] _positions;
+    private Vector3[] _positions;
     private RenderParams _rp;
 
     private void Start()
     {
         var count = SceneTools.GetCount;
-        _positions = new float3[count];
+        _positions = new Vector3[count];
         _cubeYOffsets = new float[count];
         _matrices = new Matrix4x4[_positions.Length];
 

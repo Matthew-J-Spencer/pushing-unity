@@ -7,7 +7,11 @@ using UnityEngine.SceneManagement;
 public class SceneTools : MonoBehaviour
 {
     public const float DEPTH_OFFSET = 7;
-    public const float HEIGHT_SCALE = 1.5f;
+    
+    // Variance between mathf & mathematics perlin. Trying to keep them visually similar
+    public const float HEIGHT_SCALE = 2.5f;
+    public const float BURST_HEIGHT_SCALE = 1.5f;
+    
     public const float NOISE_SCALE = .2f;
     private const int SIDE_LENGTH = 100;
     private const int FPS_SAMPLE_COUNT = 20;
@@ -100,13 +104,16 @@ public static class CubeHelpers
 {
     public static (Vector3 pos, Quaternion rot) CalculatePos(this Vector3 pos, float yOffset, float time)
     {
-        return ((float3)pos).CalculatePos(yOffset, time);
+        var t = Mathf.InverseLerp(yOffset, SceneTools.HEIGHT_SCALE + yOffset, pos.y);
+        var rot = Quaternion.Slerp(quaternion.identity, SceneTools.RotGoal, t);
+        pos.y = SceneTools.HEIGHT_SCALE * Mathf.PerlinNoise(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time) + yOffset * SceneTools.DEPTH_OFFSET;
+        return (pos, rot);
     }
 
-    public static (float3 pos, Quaternion rot) CalculatePos(this float3 pos, float yOffset, float time)
+    public static (float3 pos, Quaternion rot) CalculatePosBurst(this float3 pos, float yOffset, float time)
     {
-        var t = math.unlerp(yOffset, SceneTools.HEIGHT_SCALE + yOffset, pos.y);
-        pos.y = SceneTools.HEIGHT_SCALE * noise.cnoise(new float2(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time)) +
+        var t = math.unlerp(yOffset, SceneTools.BURST_HEIGHT_SCALE + yOffset, pos.y);
+        pos.y = SceneTools.BURST_HEIGHT_SCALE * noise.cnoise(new float2(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time)) +
                 yOffset * SceneTools.DEPTH_OFFSET;
         var rot = math.nlerp(quaternion.identity, SceneTools.RotGoal, t);
         return (pos, rot);

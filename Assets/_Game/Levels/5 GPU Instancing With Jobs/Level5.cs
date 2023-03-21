@@ -68,7 +68,7 @@ internal struct CubePositionJob : IJobParallelFor
 
     public void Execute(int index)
     {
-        var (pos, rot) = Positions[index].CalculatePos(YOffsets[index], Time);
+        var (pos, rot) = Positions[index].CalculatePosBurst(YOffsets[index], Time);
 
         Positions[index] = pos;
         Matrices[index] = Matrix4x4.TRS(pos, rot, SceneTools.CubeScale);
