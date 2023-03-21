@@ -27,7 +27,7 @@ public class SceneTools : MonoBehaviour
     private readonly int[] _fpsSamples = new int[FPS_SAMPLE_COUNT];
     private int _sampleIndex = 0;
 
-    public static readonly Quaternion RotGoal = Quaternion.Euler(130, 50, 50);
+    public static readonly quaternion RotGoal = quaternion.Euler(130, 50, 50);
 
     private void Awake()
     {
@@ -84,14 +84,14 @@ public static class CubeHelpers
 {
     public static (Vector3 pos, Quaternion rot) CalculatePos(this Vector3 pos, float yOffset, float time)
     {
-        var t = Mathf.InverseLerp(yOffset, SceneTools.HEIGHT_SCALE + yOffset, pos.y);
-        var rot = Quaternion.Slerp(quaternion.identity, SceneTools.RotGoal, t);
-        pos.y = SceneTools.HEIGHT_SCALE * Mathf.PerlinNoise(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time) + yOffset * SceneTools.DEPTH_OFFSET;
-        return (pos, rot);
+       return ((float3)pos).CalculatePos(yOffset, time);
     }
 
     public static (float3 pos, Quaternion rot) CalculatePos(this float3 pos, float yOffset, float time)
     {
-        return ((Vector3)pos).CalculatePos(yOffset, time);
+        var t = math.unlerp(yOffset, SceneTools.HEIGHT_SCALE + yOffset, pos.y);
+        pos.y = SceneTools.HEIGHT_SCALE * noise.cnoise(new float2(pos.x * SceneTools.NOISE_SCALE + time, pos.z * SceneTools.NOISE_SCALE + time)) + yOffset;
+        var rot = math.nlerp(quaternion.identity, SceneTools.RotGoal,t);
+        return (pos, rot);
     }
 }
