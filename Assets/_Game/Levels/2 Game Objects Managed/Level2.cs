@@ -12,7 +12,6 @@ public class Level2 : MonoBehaviour
         var count = SceneTools.GetCount;
         _spawnedCubes = new Transform[count];
         _cubeYOffsets = new float[count];
-
         
         SceneTools.LoopPositions((i, p) =>
         {
@@ -25,11 +24,6 @@ public class Level2 : MonoBehaviour
     }
 
     private void Update()
-    {
-        HandleStandard();
-    }
-
-    private void HandleStandard()
     {
         var time = Time.time;
         for (var i = 0; i < _spawnedCubes.Length; i++)

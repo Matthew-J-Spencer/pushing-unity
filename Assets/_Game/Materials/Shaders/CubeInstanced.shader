@@ -21,9 +21,6 @@ Shader "Tarodev/CubeInstanced"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
-            //   #include "UnityCG.cginc"
-            //  #include "UnityLightingCommon.cginc"
-            //   #include "AutoLight.cginc"
 
             float4 _FarColor;
 
@@ -31,7 +28,7 @@ Shader "Tarodev/CubeInstanced"
             StructuredBuffer<float4> position_buffer_2;
             float4 color_buffer[8];
 
-            struct Attributes
+            struct attributes
             {
                 float3 normal : NORMAL;
                 float4 vertex : POSITION;
@@ -39,14 +36,14 @@ Shader "Tarodev/CubeInstanced"
                 float4 color : COLOR;
             };
 
-            struct Varyings
+            struct varyings
             {
                 float4 vertex : SV_POSITION;
                 float3 diffuse : TEXCOORD2;
                 float3 color : TEXCOORD3;
             };
 
-            Varyings vert(Attributes v, const uint instance_id : SV_InstanceID)
+            varyings vert(attributes v, const uint instance_id : SV_InstanceID)
             {
                 float4 start = position_buffer_1[instance_id];
                 float4 end = position_buffer_2[instance_id];
@@ -59,7 +56,7 @@ Shader "Tarodev/CubeInstanced"
                 const float3 pos = lerp(world_start, world_end, t);
                 const float3 color = lerp(color_buffer[end.w % 8], _FarColor, t);
 
-                Varyings o;
+                varyings o;
                 o.vertex = mul(UNITY_MATRIX_VP, float4(pos, 1.0f));
                 o.diffuse = saturate(dot(v.normal, _MainLightPosition.xyz));
                 o.color = color;
@@ -67,7 +64,7 @@ Shader "Tarodev/CubeInstanced"
                 return o;
             }
 
-            half4 frag(const Varyings i) : SV_Target
+            half4 frag(const varyings i) : SV_Target
             {
                 const float3 lighting = i.diffuse *  1.7;
                 return half4(i.color * lighting, 1);;
@@ -76,76 +73,3 @@ Shader "Tarodev/CubeInstanced"
         }
     }
 }
-
-//{
-//    Properties
-//    {
-//        _FarColor("Far color", Color) = (.2, .2, .2, 1)
-//    }
-//    SubShader
-//    {
-//        Pass
-//        {
-//            Tags
-//            {
-//                "RenderType"="Opaque"
-//                "RenderPipeline" = "UniversalRenderPipeline"
-//            }
-//
-//            HLSLPROGRAM
-//            #pragma vertex vert
-//            #pragma fragment frag
-//            #pragma multi_compile_instancing
-//            
-//          
-//            #include "UnityCG.cginc"
-//            #include "UnityLightingCommon.cginc"
-//            #include "AutoLight.cginc"
-//
-//            float4 _FarColor;
-//
-//            StructuredBuffer<float4> position_buffer_1;
-//            StructuredBuffer<float4> position_buffer_2;
-//            float4 color_buffer[32];
-//
-//            struct v2_f
-//            {
-//                float4 vertex : SV_POSITION;
-//                float3 ambient : TEXCOORD1;
-//                float3 diffuse : TEXCOORD2;
-//                float3 color : TEXCOORD3;
-//                
-//            };
-//
-//            v2_f vert(appdata_base v, const uint instance_id : SV_InstanceID)
-//            {
-//                float4 start = position_buffer_1[instance_id];
-//                float4 end = position_buffer_2[instance_id];
-//
-//                const float t = (sin(_Time.y + start.w) + 1) / 2;
-//
-//                const float3 world_start = start.xyz + v.vertex.xyz;
-//                const float3 world_end = end.xyz + v.vertex.xyz;
-//
-//                const float3 pos = lerp(world_start, world_end, t);
-//                const float3 color = lerp(color_buffer[end.w], _FarColor, t);
-//
-//                v2_f o;
-//                o.vertex = mul(UNITY_MATRIX_VP, float4(pos, 1.0f));
-//                o.ambient = ShadeSH9(float4(v.normal, 1.0f));
-//                o.diffuse = (saturate(dot(v.normal, _WorldSpaceLightPos0.xyz)) * _LightColor0.rgb);
-//                o.color = color;
-//
-//
-//                return o;
-//            }
-//
-//            fixed4 frag(const v2_f i) : SV_Target
-//            {
-//                const float3 lighting = i.diffuse * SHADOW_ATTENUATION(i) + i.ambient;
-//                return fixed4(i.color * lighting, 1);;
-//            }
-//            ENDHLSL
-//        }
-//    }
-//}

@@ -35,7 +35,7 @@ public class Level9 : MonoBehaviour
                 }
                 break;
             case TestMode.Cache:
-                var cam = Camera.main;
+                var cam = Camera.main; 
                 for (var i = 0; i < _iterations; i++)
                 {
                     var result = cam;
