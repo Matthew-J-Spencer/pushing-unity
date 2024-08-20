@@ -1,3 +1,4 @@
+using System;
 using Unity.Entities;
 using UnityEngine;
 
@@ -24,8 +25,15 @@ public class Level6 : MonoBehaviour
 
     private void OnDestroy()
     {
-        _world?.DestroySystemManaged(_system);
-        _world?.DestroySystem(_system2);
+        try
+        {
+            _world?.DestroySystemManaged(_system);
+            _world?.DestroySystem(_system2);
+        }
+        catch 
+        {
+        }
+   
     }
 
     private void DelayedSystems()

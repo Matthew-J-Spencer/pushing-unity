@@ -3,14 +3,14 @@ using Unity.Transforms;
 
 public readonly partial struct MoveToPositionAspect : IAspect
 {
-    private readonly TransformAspect _transformAspect;
+    private readonly RefRW<LocalTransform> _localTransform;
     private readonly RefRO<TargetPositionComponent> _targetPosition;
 
     public void Move(float time)
     {
-        var (pos, rot) = _transformAspect.LocalPosition.CalculatePosBurst(_targetPosition.ValueRO.Value.y, time);
+        var (pos, rot) = _localTransform.ValueRO.Position.CalculatePosBurst(_targetPosition.ValueRO.Value.y, time);
 
-        _transformAspect.LocalRotation = rot;
-        _transformAspect.LocalPosition = pos;
+        _localTransform.ValueRW.Position = pos;
+        _localTransform.ValueRW.Rotation = rot;
     }
 }

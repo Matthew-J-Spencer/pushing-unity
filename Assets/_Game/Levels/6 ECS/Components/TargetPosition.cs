@@ -16,7 +16,8 @@ public class TargetPositionBaker : Baker<TargetPosition>
 {
     public override void Bake(TargetPosition authoring)
     {
-        AddComponent(new TargetPositionComponent
+        Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+        AddComponent(entity, new TargetPositionComponent
         {
             Value = authoring.Value
         });

@@ -11,7 +11,10 @@ public partial class PlayerSpawnerSystem : SystemBase
         // This is bad code. Can somebody tell me how to instantiate entities at a position using a command buffer?
         if (EntityManager.CreateEntityQuery(typeof(TargetPositionComponent)).CalculateEntityCount() != 0)
         {
-            foreach (var (aspect, targetPos) in SystemAPI.Query<TransformAspect, TargetPositionComponent>()) aspect.LocalPosition = targetPos.Value;
+            foreach (var (aspect, targetPos) in SystemAPI.Query<RefRW<LocalTransform>, TargetPositionComponent>())
+            {
+                aspect.ValueRW.Position = targetPos.Value;
+            }
 
             Enabled = false;
             return;

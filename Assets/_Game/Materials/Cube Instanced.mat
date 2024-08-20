@@ -83,3 +83,4 @@ Material:
     - _EmissionColor: {r: 8.574187, g: 4.0349116, b: 7.599084, a: 1}
     - _FarColor: {r: 0.23584908, g: 0.23584908, b: 0.23584908, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

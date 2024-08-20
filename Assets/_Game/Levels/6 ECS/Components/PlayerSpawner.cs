@@ -16,9 +16,10 @@ public class PlayerSpawnerBaker : Baker<PlayerSpawner>
 {
     public override void Bake(PlayerSpawner authoring)
     {
-        AddComponent(new PlayerSpawnerComponent
+        Entity entity = GetEntity(TransformUsageFlags.Dynamic);
+        AddComponent(entity, new PlayerSpawnerComponent
         {
-            PlayerPrefab = GetEntity(authoring.PlayerPrefab)
+            PlayerPrefab = GetEntity(authoring.PlayerPrefab, TransformUsageFlags.Dynamic)
         });
     }
 }
